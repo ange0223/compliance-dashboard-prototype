@@ -1584,8 +1584,10 @@ h1 {
     background: #0f172a;
     color: white;
     padding: 14px 18px;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 200;
   }
 
@@ -1637,9 +1639,9 @@ h1 {
     pointer-events: auto;
   }
 
-  /* Content views take full width */
+  /* Content views take full width, padded clear of fixed topbar */
   .content-view {
-    padding: 20px 16px;
+    padding: 72px 16px 20px;
   }
 
   /* Stack page header vertically */

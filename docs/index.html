@@ -1577,13 +1577,18 @@ h1 {
   }
 
   /* Mobile top bar */
+  :root {
+    --topbar-height: 56px;
+  }
+
   .mobile-topbar {
     display: flex;
     align-items: center;
     gap: 14px;
     background: #0f172a;
     color: white;
-    padding: 14px 18px;
+    padding: 0 18px;
+    height: var(--topbar-height);
     position: fixed;
     top: 0;
     left: 0;
@@ -1641,7 +1646,6 @@ h1 {
 
   /* Content views take full width, padded clear of fixed topbar */
   .content-view {
-    padding: 72px 16px 20px;
   }
 
   /* Stack page header vertically */

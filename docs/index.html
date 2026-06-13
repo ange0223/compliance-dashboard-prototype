@@ -1,0 +1,1529 @@
+
+<!-- BEGIN app/views/layouts/application.html.erb --><!DOCTYPE html>
+<html>
+  <head>
+    <title>Compliance Dashboard Prototype</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="uxszqM2ZyCK6tC8ki5Y9a18ypUz-5-tBObaeY3Y5asrVziXmnT8OOoNAq9av3o-h6nuE5hWIymKXJwrqVw9F5A" />
+    
+
+    
+
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="stylesheet" href="/assets/application-7a602246.css" data-turbo-track="reload" />
+    <script type="importmap" data-turbo-track="reload">{
+  "imports": {
+    "application": "/assets/application-bfcdf840.js",
+    "@hotwired/turbo-rails": "/assets/turbo.min-9fd88cd5.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-4b1e420e.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-1fc53fe7.js",
+    "controllers/application": "/assets/controllers/application-3affb389.js",
+    "controllers/hello_controller": "/assets/controllers/hello_controller-708796bd.js",
+    "controllers": "/assets/controllers/index-ee64e1f1.js"
+  }
+}</script>
+<link rel="modulepreload" href="/assets/application-bfcdf840.js">
+<link rel="modulepreload" href="/assets/turbo.min-9fd88cd5.js">
+<link rel="modulepreload" href="/assets/stimulus.min-4b1e420e.js">
+<link rel="modulepreload" href="/assets/stimulus-loading-1fc53fe7.js">
+<link rel="modulepreload" href="/assets/controllers/application-3affb389.js">
+<link rel="modulepreload" href="/assets/controllers/hello_controller-708796bd.js">
+<link rel="modulepreload" href="/assets/controllers/index-ee64e1f1.js">
+<script type="module">import "application"</script>
+    
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <!-- BEGIN app/views/dashboard/index.html.erb --><div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">Compliance Dashboard</div>
+       <button class="collapse-btn" aria-label="Collapse sidebar">
+        <span></span>
+  <span></span>
+  <span></span></button>      
+       </div>
+
+    <nav>
+    <a class="active nav-link" href="#" data-view="dashboard-view" title="Dashboard">
+    <i class="fa-solid fa-chart-line nav-icon"></i>
+    <span class="nav-label">Dashboard</span>
+  </a>
+
+  <a href="#" class="nav-link" data-view="requirements-view" title="Requirements">
+    <i class="fa-solid fa-list-check nav-icon"></i>
+    <span class="nav-label">Requirements</span>
+  </a>
+
+  <a href="#" class="nav-link" data-view="evidence-view" title = "Evidence Library">
+    <i class="fa-solid fa-folder-open nav-icon"></i>
+    <span class="nav-label">Evidence Library</span>
+  </a>
+
+  <a href="#" class="nav-link" data-view="reports-view" title = "Reports" >
+    <i class="fa-solid fa-file-lines nav-icon"></i>
+    <span class="nav-label">Reports</span>
+  </a>
+    </nav>
+  </aside>
+
+  <section class="content-view active-view" id="dashboard-view">
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">NIST 800-171 / CMMC Level 2</p>
+        <h1>Compliance Evidence Dashboard</h1>
+        <p class="subtitle">Track requirement readiness and attach evidence for assessor review.</p>
+      </div>
+
+      <button class="action-btn export-btn">Export Readiness Report</button>
+    </header>
+
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <span>Overall Readiness <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Calculated based on requirement completion, evidence coverage, and review status across NIST 800-171 controls."></i></span>
+        <strong>78%</strong>
+        <p>86 of 110 requirements have evidence attached</p>
+      </div>
+
+      <div class="metric-card">
+        <span>Missing Evidence</span>
+        <strong>24</strong>
+        <p>Prioritized by risk and assessment impact</p>
+      </div>
+
+      <div class="metric-card">
+        <span>Ready for Review <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Requirements with evidence attached and awaiting final compliance validation."></i></span>
+        <strong>64</strong>
+        <p>Controls ready for compliance team validation</p>
+      </div>
+
+      <div class="metric-card">
+        <span>High Priority Gaps</span>
+        <strong>7</strong>
+        <p>Evidence needed before assessor review</p>
+      </div>
+    </section>
+
+   <section class="control-families">
+      <h2>Control Family Progress</h2>
+
+  <div class="family-grid">
+    <div class="family-card">
+      <h3>Access Control <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Covers requirements that limit system access to authorized users, devices, and processes."></i></h3>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 92%;"></div>
+      </div>
+      <span>92% Complete</span>
+    </div>
+
+    <div class="family-card">
+      <h3>Audit & Accountability <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Covers requirements for creating, protecting, and retaining audit logs to monitor system activity."></i></h3>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 76%;"></div>
+      </div>
+      <span>76% Complete</span>
+    </div>
+
+    <div class="family-card">
+      <h3>Configuration Management <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Covers requirements for establishing and maintaining baseline configurations and controlling system changes."></i></h3>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 58%;"></div>
+      </div>
+      <span>58% Complete</span>
+    </div>
+
+    <div class="family-card">
+      <h3>Media Protection <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Covers requirements for protecting, controlling, and sanitizing system media that contains CUI."></i></h3>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 41%;"></div>
+      </div>
+      <span>41% Complete</span>
+    </div>
+  </div>
+   </section>
+
+   <section class="requirements-section">
+ <div class="section-header">
+  <div>
+    <h2>Requirement Evidence</h2>
+    <p>Search, filter, and attach evidence to specific NIST requirements.</p>
+  </div>
+</div>
+
+<div class="table-filters">
+  <input class="dashboard-search"  type="search" placeholder="Search requirement, ID, or keyword">
+
+ <select class="filter-select dashboard-status-filter" multiple data-placeholder="All statuses">
+    <option>All statuses</option>
+    <option>Missing Evidence</option>
+    <option>In Review</option>
+    <option>Complete</option>
+  </select>
+
+ <select class="filter-select dashboard-family-filter" multiple data-placeholder="All Control Families">
+    <option>All Control Families</option>
+    <option>Access Control</option>
+    <option>Awareness & Training</option>
+    <option>Audit & Accountability</option>
+    <option>Configuration Management</option>
+    <option>Identification & Authentication</option>
+    <option>Incident Response</option>
+    <option>Media Protection</option>
+    <option>Personnel Security</option>
+    <option>Physical Protection</option>
+    <option>Risk Assessment</option>
+    <option>Security Assessment</option>
+    <option>System & Communications Protection</option>
+    <option>System & Information Integrity</option>
+     </select>
+</div>
+
+  <table class="requirements-table">
+    <thead>
+      <p class="table-note">Showing 7 high-priority evidence gaps from 24 total requirements missing evidence.</p>
+      <tr>
+        <th>ID</th>
+        <th>Requirement</th>
+        <th>Status</th>
+        <th>Evidence</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr data-requirement-id="3.1.1" data-status="Missing Evidence" data-family="Access Control">
+        <td>3.1.1</td>
+        <td>Limit system access to authorized users</td>
+        <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+        <td class="evidence-count">3 Files</td>
+        <td class="table-actions"><button class="secondary-btn view-btn">View</button><button class="action-btn attach-btn">Attach Evidence</button></td>
+      </tr>
+
+      <tr data-requirement-id="3.5.3" data-status="In Review" data-family="Identification & Authentication">
+        <td>3.5.3</td>
+        <td>Use multifactor authentication</td>
+        <td><span class="status review" data-tooltip="Evidence has been submitted and is awaiting compliance validation.">In Review</span></td>
+        <td class="evidence-count">2 Files</td>
+        <td class="table-actions"><button class="secondary-btn view-btn">View</button><button class="action-btn attach-btn">Attach</button></td>
+      </tr>
+
+      <tr data-requirement-id="3.8.1" data-status="Missing Evidence" data-family="Protect media containing CUI">
+        <td>3.8.1</td>
+        <td>Protect media containing CUI</td>
+        <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+        <td class="evidence-count">0 Files</td>
+        <td class="table-actions"><button class="action-btn attach-btn">Attach Evidence</button></td>
+      </tr>
+      <tr data-requirement-id="3.3.1" data-status="Missing Evidence" data-family="Audit & Accountability">
+  <td>3.3.1</td>
+  <td>Create and retain system audit logs</td>
+  <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+  <td class="evidence-count">0 Files</td>
+  <td class="table-actions">
+    <button class="action-btn attach-btn">Attach</button>
+  </td>
+</tr>
+
+<tr data-requirement-id="3.4.1" data-status="Missing Evidence" data-family="Configuration Management">
+  <td>3.4.1</td>
+  <td>Establish and maintain baseline configurations</td>
+  <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+  <td class="evidence-count">0 Files</td>
+  <td class="table-actions">
+    <button class="action-btn attach-btn">Attach</button>
+  </td>
+</tr>
+
+<tr data-requirement-id="3.6.1" data-status="Missing Evidence" data-family="Incident Response">
+  <td>3.6.1</td>
+  <td>Establish an operational incident-handling capability</td>
+  <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+  <td class="evidence-count">0 Files</td>
+  <td class="table-actions">
+    <button class="action-btn attach-btn">Attach</button>
+  </td>
+</tr>
+
+<tr data-requirement-id="3.13.11" data-status="Missing Evidence" data-family="System & Communications Protection">
+  <td>3.13.11</td>
+  <td>Employ FIPS-validated cryptography where required</td>
+  <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+  <td class="evidence-count">0 Files</td>
+  <td class="table-actions">
+    <button class="action-btn attach-btn">Attach</button>
+  </td>
+</tr>
+    </tbody>
+  </table>
+</section>
+  </section>
+
+<section class="content-view" id="requirements-view">
+  <header class="view-header">
+    <p class="eyebrow">NIST 800-171 REQUIREMENTS</p>
+    <h1>Requirements</h1>
+    <p>Browse all NIST 800-171 requirements, review status, and identify gaps.</p>
+  </header>
+
+  <section class="metrics-grid">
+    <div class="metric-card">
+      <span>Total Requirements</span>
+      <strong>110</strong>
+      <p>NIST 800-171 requirements tracked</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Complete</span>
+      <strong>86</strong>
+      <p>Requirements with evidence attached</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Ready for Review</span>
+      <strong>64</strong>
+      <p>Controls ready for validation</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Missing Evidence</span>
+      <strong>24</strong>
+      <p>Requirements needing artifacts</p>
+    </div>
+  </section>
+
+  <section class="requirements-section">
+    <div class="section-header">
+      <div>
+        <h2>Requirements Overview</h2>
+        <p>Track implementation status, evidence readiness, owners, and assessment gaps.</p>
+      </div>
+    </div>
+
+    <div class="table-filters">
+     <input class="requirements-search" type="search" placeholder="Search requirement, ID, or keyword">
+
+<select class="filter-select requirements-status-filter" multiple data-placeholder="All statuses">
+  <option>Complete</option>
+  <option>In Review</option>
+  <option>Missing Evidence</option>
+</select>
+
+<select class="filter-select requirements-family-filter" multiple data-placeholder="All Control Families">
+  <option>Access Control</option>
+  <option>Audit & Accountability</option>
+  <option>Configuration Management</option>
+  <option>Identification & Authentication</option>
+  <option>Incident Response</option>
+  <option>Media Protection</option>
+  <option>System & Communications Protection</option>
+</select>    
+
+    </div>
+
+    <table class="requirements-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Requirement</th>
+          <th>Family</th>
+          <th>Status</th>
+          <th>Evidence</th>
+          <th>Owner</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr data-requirement-id="3.1.1" data-status="Complete" data-family="Access Control">
+          <td>3.1.1</td>
+          <td>Limit system access to authorized users</td>
+          <td>Access Control</td>
+          <td><span class="status complete">Complete</span></td>
+          <td class="evidence-count">3 Files</td>
+          <td>IT Security</td>
+          <td class="table-actions">
+            <button class="secondary-btn view-btn">View</button>
+            <button class="action-btn attach-btn">Attach</button>
+          </td>
+        </tr>
+
+        <tr data-requirement-id="3.5.3" data-status="In Review" data-family="Identification & Authentication">
+          <td>3.5.3</td>
+          <td>Use multifactor authentication</td>
+          <td>Identification & Authentication</td>
+          <td><span class="status review" data-tooltip="Evidence has been submitted and is awaiting compliance validation.">In Review</span></td>
+          <td class="evidence-count">2 Files</td>
+          <td>Security Team</td>
+          <td class="table-actions">
+            <button class="secondary-btn view-btn">View</button>
+            <button class="action-btn attach-btn">Attach</button>
+          </td>
+        </tr>
+
+        <tr data-requirement-id="3.8.1" data-status="Missing Evidence" data-family="Media Protection">
+          <td>3.8.1</td>
+          <td>Protect media containing CUI</td>
+          <td>Media Protection</td>
+          <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+          <td class="evidence-count">0 Files</td>
+          <td>Compliance</td>
+          <td class="table-actions">
+            <button class="action-btn attach-btn">Attach</button>
+          </td>
+        </tr>
+
+        <tr data-requirement-id="3.3.1" data-status="Missing Evidence" data-family="Audit & Accountability">
+          <td>3.3.1</td>
+          <td>Create and retain system audit logs</td>
+          <td>Audit & Accountability</td>
+          <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+          <td class="evidence-count">0 Files</td>
+          <td>IT Operations</td>
+          <td class="table-actions">
+            <button class="action-btn attach-btn">Attach</button>
+          </td>
+        </tr>
+
+        <tr data-requirement-id="3.6.1" data-status="Missing Evidence" data-family="Incident Response">
+          <td>3.6.1</td>
+          <td>Establish incident handling capability</td>
+          <td>Incident Response</td>
+          <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+          <td class="evidence-count">0 Files</td>
+          <td>Security Team</td>
+          <td class="table-actions">
+            <button class="action-btn attach-btn">Attach</button>
+          </td>
+        </tr>
+
+        <tr data-requirement-id="3.13.11" data-status="Missing Evidence" data-family="System & Communications Protection">
+          <td>3.13.11</td>
+          <td>Employ FIPS-validated cryptography where required</td>
+          <td>System & Communications Protection</td>
+          <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+          <td class="evidence-count">0 Files</td>
+          <td>Infrastructure</td>
+          <td class="table-actions">
+            <button class="action-btn attach-btn">Attach</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+
+<section class="content-view" id="evidence-view">
+  <header class="view-header">
+    <p class="eyebrow">EVIDENCE LIBRARY</p>
+    <h1>Evidence Library</h1>
+    <p>Review uploaded artifacts, linked requirements, and assessor-ready documentation.</p>
+  </header>
+
+  <section class="metrics-grid">
+    <div class="metric-card">
+      <span>Total Evidence Files</span>
+      <strong>142</strong>
+      <p>Policies, reports, screenshots, and exports</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Linked Requirements</span>
+      <strong>86</strong>
+      <p>Requirements with at least one artifact</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Needs Review</span>
+      <strong>18</strong>
+      <p>Evidence awaiting compliance validation</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Recently Added</span>
+      <strong>12</strong>
+      <p>Uploaded in the last 7 days</p>
+    </div>
+  </section>
+
+  <section class="requirements-section">
+    <div class="section-header">
+      <div>
+        <h2>Recent Evidence</h2>
+        <p>Manage artifacts attached to NIST 800-171 requirements.</p>
+      </div>
+    </div>
+
+    <table class="requirements-table">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Type</th>
+          <th>Linked Requirement</th>
+          <th>Uploaded</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Access Control Policy.pdf</td>
+          <td>Policy</td>
+          <td>3.1.1</td>
+          <td>Jun 10, 2026</td>
+          <td><span class="status complete">Approved</span></td>
+          <td class="table-actions">
+            <button class="secondary-btn evidence-open-btn">Open</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>MFA Enrollment Report.csv</td>
+          <td>Report</td>
+          <td>3.5.3</td>
+          <td>Jun 9, 2026</td>
+          <td><span class="status review" data-tooltip="Evidence has been submitted and is awaiting compliance validation.">In Review</span></td>
+          <td class="table-actions">
+            <button class="secondary-btn evidence-open-btn">Open</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Incident Response Plan.docx</td>
+          <td>Procedure</td>
+          <td>3.6.1</td>
+          <td>Jun 7, 2026</td>
+          <td><span class="status missing">Needs Replacement</span></td>
+          <td class="table-actions">
+            <button class="secondary-btn evidence-open-btn">Open</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+
+<section class="content-view" id="reports-view">
+  <header class="view-header">
+    <p class="eyebrow">COMPLIANCE REPORTING</p>
+    <h1>Reports</h1>
+    <p>Generate assessor-facing exports and internal readiness summaries.</p>
+  </header>
+
+  <section class="metrics-grid">
+    <div class="metric-card">
+      <span>Readiness Score</span>
+      <strong>78%</strong>
+      <p>Based on current evidence coverage</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Exportable Reports</span>
+      <strong>4</strong>
+      <p>CSV, PDF, evidence package, and gap report</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Open Gaps</span>
+      <strong>24</strong>
+      <p>Missing evidence before assessment</p>
+    </div>
+
+    <div class="metric-card">
+      <span>Last Export</span>
+      <strong>Jun 12</strong>
+      <p>Readiness report generated by Compliance</p>
+    </div>
+  </section>
+
+  <section class="requirements-section">
+    <div class="section-header">
+      <div>
+        <h2>Available Reports</h2>
+        <p>Create exports for leadership, compliance teams, and assessors.</p>
+      </div>
+    </div>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <i class="fa-solid fa-file-csv report-icon"></i>
+        <h3>Requirement Evidence CSV <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Exports requirement IDs, statuses, evidence counts, owners, and linked file names in a spreadsheet-compatible format."></i></h3>
+        <p>Export requirement status, evidence counts, owners, and linked artifacts.</p>
+        <button class="action-btn report-export-btn" data-report="Requirement Evidence CSV">Generate CSV</button>
+      </div>
+
+      <div class="report-card">
+        <i class="fa-solid fa-file-pdf report-icon"></i>
+        <h3>Compliance Readiness Summary <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Summarizes your overall readiness score, open gaps, and controls ready for assessor review in a printable PDF format."></i></h3>
+        <p>Summarize readiness score, open gaps, and controls ready for review.</p>
+        <button class="action-btn report-generate-btn" data-report="Compliance Readiness Summary">Generate PDF</button>
+      </div>
+
+      <div class="report-card">
+        <i class="fa-solid fa-box-archive report-icon"></i>
+        <h3>Assessor Evidence Package <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Bundles approved evidence by control family for external assessment preparation."></i></h3>
+        <p>Bundle approved artifacts by control family for assessment preparation.</p>
+        <button class="action-btn report-generate-btn" data-report="Assessor Evidence Package">Prepare Package</button>
+      </div>
+
+      <div class="report-card">
+        <i class="fa-solid fa-triangle-exclamation report-icon"></i>
+        <h3>Missing Evidence Gap Report <i class="fa-solid fa-circle-info info-tooltip" data-tooltip="Prioritizes incomplete requirements by risk, owner, and control family to guide remediation efforts."></i></h3>
+        <p>Prioritize incomplete requirements by status, owner, and control family.</p>
+        <button class="action-btn report-generate-btn" data-report="Missing Evidence Gap Report">Generate Report</button>
+      </div>
+    </div>
+  </section>
+</section>
+  </main>
+</div>
+
+<script>
+const tooltip = document.createElement("div");
+tooltip.className = "custom-tooltip";
+document.body.appendChild(tooltip);
+
+document.addEventListener("mouseover", function (e) {
+  const target = e.target.closest("[data-tooltip]");
+  if (!target) return;
+
+  tooltip.textContent = target.dataset.tooltip;
+  tooltip.style.opacity = "1";
+
+  const rect = target.getBoundingClientRect();
+  tooltip.style.left = "0px";
+  tooltip.style.top = "0px";
+  const tw = tooltip.offsetWidth;
+  const th = tooltip.offsetHeight;
+
+  let left = rect.left + window.scrollX + rect.width / 2 - tw / 2;
+  let top = rect.top + window.scrollY - th - 8;
+
+  left = Math.max(8, Math.min(left, window.innerWidth - tw - 8));
+  if (top < window.scrollY + 8) top = rect.bottom + window.scrollY + 8;
+
+  tooltip.style.left = left + "px";
+  tooltip.style.top = top + "px";
+});
+
+document.addEventListener("mouseout", function (e) {
+  if (!e.target.closest("[data-tooltip]")) return;
+  tooltip.style.opacity = "0";
+});
+
+$(document).ready(function () {
+  $(".filter-select").select2({
+    width: "100%",
+    placeholder: function () {
+      return $(this).data("placeholder");
+    },
+    allowClear: true
+  });
+});
+
+const evidenceStore = {
+  "3.1.1": ["Access Control Policy v2.1.pdf", "User Access Review Q1-2026.xlsx", "Active Directory Group Policy Export.pdf"],
+  "3.5.3": ["MFA policy.pdf", "Authenticator enrollment report.csv"],
+  "3.8.1": [],
+  "3.3.1": [],
+  "3.4.1": [],
+  "3.6.1": [],
+  "3.13.11": []
+};
+
+function requirementRow(button) {
+  return button.closest("tr");
+}
+
+function requirementIdFromButton(button) {
+  return requirementRow(button).dataset.requirementId;
+}
+
+function updateEvidenceCell(requirementId) {
+  const rows = document.querySelectorAll(
+    `[data-requirement-id="${requirementId}"]`
+  );
+
+  if (!rows.length) return;
+
+  const evidenceCount = evidenceStore[requirementId].length;
+
+  rows.forEach((row) => {
+    const countCell = row.querySelector(".evidence-count");
+    if (countCell) {
+      countCell.textContent =
+        `${evidenceCount} ${evidenceCount === 1 ? "File" : "Files"}`;
+    }
+
+    const actions = row.querySelector(".table-actions");
+    if (!actions) return;
+
+    if (evidenceCount > 0 && !actions.querySelector(".view-btn")) {
+      actions.insertAdjacentHTML(
+        "afterbegin",
+        `<button class="secondary-btn view-btn">View</button>`
+      );
+    }
+
+    if (evidenceCount === 0) {
+      const viewButton = actions.querySelector(".view-btn");
+      if (viewButton) viewButton.remove();
+    }
+  });
+}
+
+document.addEventListener("click", function (event) {
+  const collapseButton = event.target.closest(".collapse-btn");
+  const attachButton = event.target.closest(".attach-btn");
+  const viewButton = event.target.closest(".view-btn");
+  const exportButton = event.target.closest(".export-btn");
+  const navLink = event.target.closest(".nav-link");
+  const evidenceOpenButton = event.target.closest(".evidence-open-btn");
+  const reportGenerateButton = event.target.closest(".report-generate-btn");
+  const reportExportButton = event.target.closest(".report-export-btn");
+  
+  if (evidenceOpenButton) {
+  Swal.fire({
+    icon: "info",
+    title: "Evidence Preview",
+    text: "This prototype simulates opening an uploaded evidence artifact."
+  });
+}
+
+if (reportGenerateButton) {
+  Swal.fire({
+    icon: "success",
+    title: "Report Queued",
+    text: `${reportGenerateButton.dataset.report} would be generated here.`
+  });
+}
+
+if (reportExportButton) {
+  exportRequirementsCsv();
+}
+
+  
+  if (collapseButton) {
+    document.querySelector(".app-shell").classList.toggle("sidebar-collapsed");
+  }
+
+  if (navLink) {
+    event.preventDefault();
+
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      link.classList.remove("active");
+    });
+
+    document.querySelectorAll(".content-view").forEach((view) => {
+      view.classList.remove("active-view");
+    });
+
+    navLink.classList.add("active");
+
+    document
+      .getElementById(navLink.dataset.view)
+      .classList.add("active-view");
+  }
+
+  if (attachButton) {
+    const requirementId = requirementIdFromButton(attachButton);
+
+    Swal.fire({
+      title: `Attach Evidence to ${requirementId}`,
+      customClass: {
+        confirmButton: 'swal-confirm',
+        cancelButton: 'swal-cancel'
+      },
+      html: `
+        <p class="swal-copy">
+          Upload a policy, screenshot, report, or audit artifact.
+        </p>
+        <input type="file" id="evidenceFile" class="swal2-file">
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Attach Evidence",
+      preConfirm: () => {
+        const fileInput = document.getElementById("evidenceFile");
+
+        if (!fileInput.files.length) {
+          Swal.showValidationMessage(
+            "Please choose a file to attach."
+          );
+          return false;
+        }
+
+        return fileInput.files[0].name;
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        evidenceStore[requirementId].push(result.value);
+
+        updateEvidenceCell(requirementId);
+
+        Swal.fire({
+          icon: "success",
+          title: "Evidence Attached",
+          text: `${result.value} was added to requirement ${requirementId}.`
+        });
+      }
+    });
+  }
+
+  if (viewButton) {
+    const requirementId = requirementIdFromButton(viewButton);
+    const files = evidenceStore[requirementId] || [];
+
+    const fileList = files
+      .map((file, index) => `
+        <div class="evidence-item">
+          <span>${file}</span>
+
+          <div>
+            <button
+              class="mini-btn"
+              onclick="openEvidence('${file}')">
+              Open
+            </button>
+
+            <button
+              class="mini-btn danger"
+              onclick="removeEvidence('${requirementId}', ${index})">
+              Remove
+            </button>
+          </div>
+        </div>
+      `)
+      .join("");
+
+    Swal.fire({
+      title: `Evidence for ${requirementId}`,
+      html: fileList || "<p>No evidence attached.</p>",
+      width: 700,
+      showConfirmButton: false,
+      showCloseButton: true
+    });
+  }
+
+  if (exportButton) {
+    exportRequirementsCsv();
+  }
+});
+
+window.openEvidence = function (fileName) {
+  Swal.fire({
+    icon: "info",
+    title: fileName,
+    text: "This prototype simulates opening evidence."
+  });
+};
+
+window.removeEvidence = function (requirementId, index) {
+  evidenceStore[requirementId].splice(index, 1);
+
+  updateEvidenceCell(requirementId);
+
+  Swal.fire({
+    icon: "success",
+    title: "Evidence Removed",
+    text: "The evidence item was removed."
+  });
+};
+
+function exportRequirementsCsv() {
+  const rows = [
+    [
+      "Requirement ID",
+      "Requirement",
+      "Status",
+      "Evidence Count",
+      "Evidence Files"
+    ]
+  ];
+
+  document
+    .querySelectorAll(".requirements-table tbody tr")
+    .forEach((row) => {
+      const id = row.dataset.requirementId;
+      const requirement = row.children[1].innerText;
+      const status = row.dataset.status;
+      const files = evidenceStore[id] || [];
+
+      rows.push([
+        id,
+        requirement,
+        status,
+        files.length,
+        files.join("; ")
+      ]);
+    });
+
+  const csv = rows
+    .map((row) =>
+      row
+        .map((value) =>
+          `"${String(value).replaceAll('"', '""')}"`
+        )
+        .join(",")
+    )
+    .join("\n");
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "compliance-evidence-dashboard.csv";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+}
+
+function filterTable({ searchSelector, statusSelector, familySelector, tableSelector }) {
+  const searchValue =
+    document.querySelector(searchSelector)?.value.toLowerCase() || "";
+
+  const selectedStatuses = $(statusSelector).val() || [];
+  const selectedFamilies = $(familySelector).val() || [];
+
+  document.querySelectorAll(`${tableSelector} tbody tr`).forEach((row) => {
+    const rowText = row.innerText.toLowerCase();
+    const rowStatus = row.dataset.status;
+    const rowFamily = row.dataset.family;
+
+    const matchesSearch = rowText.includes(searchValue);
+    const matchesStatus =
+      selectedStatuses.length === 0 || selectedStatuses.includes(rowStatus);
+    const matchesFamily =
+      selectedFamilies.length === 0 || selectedFamilies.includes(rowFamily);
+
+    row.style.display =
+      matchesSearch && matchesStatus && matchesFamily ? "" : "none";
+  });
+}
+
+function applyDashboardFilters() {
+  filterTable({
+    searchSelector: ".dashboard-search",
+    statusSelector: ".dashboard-status-filter",
+    familySelector: ".dashboard-family-filter",
+    tableSelector: "#dashboard-view .requirements-table"
+  });
+}
+
+function applyRequirementsFilters() {
+  filterTable({
+    searchSelector: ".requirements-search",
+    statusSelector: ".requirements-status-filter",
+    familySelector: ".requirements-family-filter",
+    tableSelector: "#requirements-view .requirements-table"
+  });
+}
+
+document.addEventListener("input", function (event) {
+  if (event.target.classList.contains("dashboard-search")) {
+    applyDashboardFilters();
+  }
+
+  if (event.target.classList.contains("requirements-search")) {
+    applyRequirementsFilters();
+  }
+});
+
+$(".dashboard-status-filter, .dashboard-family-filter").on(
+  "change",
+  applyDashboardFilters
+);
+
+$(".requirements-status-filter, .requirements-family-filter").on(
+  "change",
+  applyRequirementsFilters
+);</script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4f7fb;
+  color: #172033;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #0f172a;
+  color: white;
+  padding: 28px 22px;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: #1e293b;
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.subtitle {
+  color: #64748b;
+  margin-top: 10px;
+}
+
+.primary-button {
+  background: #2563eb;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.metric-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.metric-card span {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.metric-card strong {
+  display: block;
+  font-size: 36px;
+  margin: 12px 0 8px;
+}
+
+.metric-card p {
+  color: #64748b;
+  margin: 0;
+  font-size: 14px;
+}
+
+.control-families {
+  margin-top: 36px;
+}
+
+.control-families h2 {
+  margin-bottom: 18px;
+}
+
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.family-card {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+}
+
+.family-card h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #2563eb;
+}
+
+.requirements-section {
+  margin-top: 40px;
+}
+
+.requirements-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.requirements-table th,
+.requirements-table td {
+  text-align: left;
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status.missing {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status.review {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.sidebar-header {
+	display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 34px;
+}
+
+.collapse-btn {
+ width: 36px;
+  height: 36px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #1e293b;
+  cursor: pointer;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.collapse-btn span {
+  width: 14px;
+  height: 2px;
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+.collapse-btn:hover {
+  background: #334155;
+  color: white;
+}
+.action-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+.secondary-btn {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.section-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.table-filters {
+ display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: start;
+}
+
+.select2-container--default .select2-selection--multiple {
+  min-height: 44px;
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  padding: 4px 6px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: #2563eb;
+  outline: 2px solid #bfdbfe;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.table-filters input,
+.table-filters select {
+  width: 100%;
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  padding: 11px 12px;
+  font: inherit;
+  color: #172033;
+  background: white;
+}
+
+.table-filters input:focus,
+.table-filters select:focus {
+  outline: 2px solid #bfdbfe;
+  border-color: #2563eb;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.action-btn,
+.secondary-btn {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.action-btn {
+  background: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+}
+
+.secondary-btn {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.action-btn:hover,
+.secondary-btn:hover {
+  filter: brightness(0.96);
+}
+
+.info-tooltip {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-left: 4px;
+  cursor: help;
+  vertical-align: middle;
+}
+
+.info-tooltip:hover {
+  color: #2563eb;
+}
+
+.custom-tooltip {
+  position: absolute;
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 260px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+/* Popups */
+
+.swal-copy {
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.swal2-confirm {
+  background: #2563eb !important;
+  border: 1px solid #2563eb !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+.swal2-confirm:hover {
+  background: #1d4ed8 !important;
+}
+
+.swal2-cancel {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border: 1px solid #bfdbfe !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+.swal2-cancel:hover {
+  background: #dbeafe !important;
+}
+
+.swal2-popup {
+  border-radius: 18px !important;
+}
+
+.swal2-title {
+  color: #172033 !important;
+}
+
+.swal2-html-container {
+  color: #64748b !important;
+}
+
+.swal-confirm {
+  background: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+
+.swal-cancel {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.evidence-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.mini-btn {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mini-btn.danger {
+  border-color: #fecaca;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.sidebar {
+  transition: width 0.2s ease, padding 0.2s ease;
+  overflow: hidden;
+}
+
+.content-view {
+  transition: padding 0.2s ease;
+}
+
+.sidebar-collapsed .sidebar {
+  width: 72px;
+  padding: 28px 14px;
+}
+
+.sidebar-collapsed .brand {
+  display: none;
+}
+
+.sidebar-collapsed .sidebar-header {
+  justify-content: center;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-icon {
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sidebar-collapsed .nav-label {
+  display: none;
+}
+
+.sidebar-collapsed .sidebar nav a {
+  justify-content: center;
+  padding: 12px;
+}
+
+.content-view {
+  display: none;
+  flex: 1;
+  padding: 36px;
+}
+
+.content-view.active-view {
+  display: block;
+}
+
+.view-header {
+  margin-bottom: 28px;
+}
+
+.view-header h1 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.view-header p {
+  color: #64748b;
+  margin-top: 10px;
+}
+
+.status.complete {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.report-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.report-icon {
+  color: #2563eb;
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+
+.report-card h3 {
+  margin: 0 0 10px;
+}
+
+.report-card p {
+  color: #64748b;
+  min-height: 70px;
+}
+</style>
+<!-- END app/views/dashboard/index.html.erb -->
+  </body>
+</html>
+<!-- END app/views/layouts/application.html.erb -->

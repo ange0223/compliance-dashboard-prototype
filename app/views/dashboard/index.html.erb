@@ -1,4 +1,13 @@
 <div class="app-shell">
+  <div class="mobile-topbar">
+    <button class="hamburger-btn" aria-label="Open sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <span class="mobile-brand">Compliance Dashboard</span>
+  </div>
+
+  <div class="sidebar-overlay"></div>
+
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="brand">Compliance Dashboard</div>
@@ -649,6 +658,8 @@ function updateEvidenceCell(requirementId) {
 
 document.addEventListener("click", function (event) {
   const collapseButton = event.target.closest(".collapse-btn");
+  const hamburgerButton = event.target.closest(".hamburger-btn");
+  const sidebarOverlay = event.target.closest(".sidebar-overlay");
   const attachButton = event.target.closest(".attach-btn");
   const viewButton = event.target.closest(".view-btn");
   const exportButton = event.target.closest(".export-btn");
@@ -656,6 +667,14 @@ document.addEventListener("click", function (event) {
   const evidenceOpenButton = event.target.closest(".evidence-open-btn");
   const reportGenerateButton = event.target.closest(".report-generate-btn");
   const reportExportButton = event.target.closest(".report-export-btn");
+
+  if (hamburgerButton) {
+    document.querySelector(".app-shell").classList.add("sidebar-open");
+  }
+
+  if (sidebarOverlay) {
+    document.querySelector(".app-shell").classList.remove("sidebar-open");
+  }
   
   if (evidenceOpenButton) {
   Swal.fire({
@@ -679,10 +698,16 @@ if (reportExportButton) {
 
   
   if (collapseButton) {
-    document.querySelector(".app-shell").classList.toggle("sidebar-collapsed");
+    const shell = document.querySelector(".app-shell");
+    if (window.innerWidth <= 768) {
+      shell.classList.remove("sidebar-open");
+    } else {
+      shell.classList.toggle("sidebar-collapsed");
+    }
   }
 
   if (navLink) {
+    document.querySelector(".app-shell").classList.remove("sidebar-open");
     event.preventDefault();
 
     document.querySelectorAll(".nav-link").forEach((link) => {
@@ -1486,5 +1511,156 @@ h1 {
 .report-card p {
   color: #64748b;
   min-height: 70px;
+}
+
+/* ── Mobile top bar (hidden on desktop) ── */
+.mobile-topbar {
+  display: none;
+}
+
+/* ── Sidebar overlay (hidden on desktop) ── */
+.sidebar-overlay {
+  display: none;
+}
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 768px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  /* Mobile top bar */
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #0f172a;
+    color: white;
+    padding: 14px 18px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+
+  .mobile-brand {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .hamburger-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+  }
+
+  /* Sidebar becomes a fixed off-canvas drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    width: 260px;
+    z-index: 300;
+    transition: left 0.25s ease;
+    overflow-y: auto;
+  }
+
+  .sidebar-open .sidebar {
+    left: 0;
+  }
+
+  /* Dim overlay when sidebar is open */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 299;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .sidebar-open .sidebar-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Content views take full width */
+  .content-view {
+    padding: 20px 16px;
+  }
+
+  /* Stack page header vertically */
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .page-header .action-btn {
+    width: 100%;
+  }
+
+  /* 2-column metric grid on mobile */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 2-column family/report grids on mobile */
+  .family-grid,
+  .report-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Horizontal scroll for tables */
+  .requirements-section {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .requirements-table {
+    min-width: 580px;
+  }
+
+  /* Table filters stack vertically */
+  .table-filters {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  /* Collapsed state is irrelevant on mobile */
+  .sidebar-collapsed .sidebar {
+    width: 260px;
+    padding: 28px 22px;
+  }
+
+  .sidebar-collapsed .brand,
+  .sidebar-collapsed .nav-label {
+    display: block;
+  }
+
+  .sidebar-collapsed .sidebar-header {
+    justify-content: space-between;
+  }
+
+  .sidebar-collapsed .sidebar nav a {
+    justify-content: flex-start;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid,
+  .family-grid,
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

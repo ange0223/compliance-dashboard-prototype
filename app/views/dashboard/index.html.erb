@@ -119,14 +119,12 @@
   <input class="dashboard-search"  type="search" placeholder="Search requirement, ID, or keyword">
 
  <select class="filter-select dashboard-status-filter" multiple data-placeholder="All statuses">
-    <option>All statuses</option>
     <option>Missing Evidence</option>
     <option>In Review</option>
     <option>Complete</option>
   </select>
 
  <select class="filter-select dashboard-family-filter" multiple data-placeholder="All Control Families">
-    <option>All Control Families</option>
     <option>Access Control</option>
     <option>Awareness & Training</option>
     <option>Audit & Accountability</option>
@@ -143,9 +141,9 @@
      </select>
 </div>
 
+  <p class="table-note">Showing 7 high-priority evidence gaps from 24 total requirements missing evidence.</p>
   <table class="requirements-table">
     <thead>
-      <p class="table-note">Showing 7 high-priority evidence gaps from 24 total requirements missing evidence.</p>
       <tr>
         <th>ID</th>
         <th>Requirement</th>
@@ -156,10 +154,10 @@
     </thead>
 
     <tbody>
-      <tr data-requirement-id="3.1.1" data-status="Missing Evidence" data-family="Access Control">
+      <tr data-requirement-id="3.1.1" data-status="Complete" data-family="Access Control">
         <td>3.1.1</td>
         <td>Limit system access to authorized users</td>
-        <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+        <td><span class="status complete">Complete</span></td>
         <td class="evidence-count">3 Files</td>
         <td class="table-actions"><button class="secondary-btn view-btn">View</button><button class="action-btn attach-btn">Attach Evidence</button></td>
       </tr>
@@ -172,7 +170,7 @@
         <td class="table-actions"><button class="secondary-btn view-btn">View</button><button class="action-btn attach-btn">Attach Evidence</button></td>
       </tr>
 
-      <tr data-requirement-id="3.8.1" data-status="Missing Evidence" data-family="Protect media containing CUI">
+      <tr data-requirement-id="3.8.1" data-status="Missing Evidence" data-family="Media Protection">
         <td>3.8.1</td>
         <td>Protect media containing CUI</td>
         <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
@@ -238,15 +236,15 @@
     </div>
 
     <div class="metric-card">
-      <span>Complete</span>
+      <span>Evidence Attached</span>
       <strong>86</strong>
-      <p>Requirements with evidence attached</p>
+      <p>Requirements with at least one artifact uploaded</p>
     </div>
 
     <div class="metric-card">
-      <span>Ready for Review</span>
+      <span>Pending Validation</span>
       <strong>64</strong>
-      <p>Controls ready for validation</p>
+      <p>Of 86 with evidence, awaiting compliance sign-off</p>
     </div>
 
     <div class="metric-card">
@@ -341,6 +339,18 @@
           <td>3.3.1</td>
           <td>Create and retain system audit logs</td>
           <td>Audit & Accountability</td>
+          <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
+          <td class="evidence-count">0 Files</td>
+          <td>IT Operations</td>
+          <td class="table-actions">
+            <button class="action-btn attach-btn">Attach Evidence</button>
+          </td>
+        </tr>
+
+        <tr data-requirement-id="3.4.1" data-status="Missing Evidence" data-family="Configuration Management">
+          <td>3.4.1</td>
+          <td>Establish and maintain baseline configurations</td>
+          <td>Configuration Management</td>
           <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
           <td class="evidence-count">0 Files</td>
           <td>IT Operations</td>
@@ -786,6 +796,8 @@ window.removeEvidence = function (requirementId, index) {
   evidenceStore[requirementId].splice(index, 1);
 
   updateEvidenceCell(requirementId);
+
+  Swal.close();
 
   Swal.fire({
     icon: "success",

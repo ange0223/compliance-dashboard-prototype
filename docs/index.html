@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="uxszqM2ZyCK6tC8ki5Y9a18ypUz-5-tBObaeY3Y5asrVziXmnT8OOoNAq9av3o-h6nuE5hWIymKXJwrqVw9F5A" />
+<meta name="csrf-token" content="_O5Y43wtIRGEcko8NcA2o06P7sXxhS_jzwcEIstXQg-SO06tLIvnCb2Gzs4RiIRp-8bPbxrqDsBhlpCr6mFtIQ" />
     
 
     
@@ -218,7 +218,7 @@
         <td>Use multifactor authentication</td>
         <td><span class="status review" data-tooltip="Evidence has been submitted and is awaiting compliance validation.">In Review</span></td>
         <td class="evidence-count">2 Files</td>
-        <td class="table-actions"><button class="secondary-btn view-btn">View</button><button class="action-btn attach-btn">Attach</button></td>
+        <td class="table-actions"><button class="secondary-btn view-btn">View</button><button class="action-btn attach-btn">Attach Evidence</button></td>
       </tr>
 
       <tr data-requirement-id="3.8.1" data-status="Missing Evidence" data-family="Protect media containing CUI">
@@ -234,7 +234,7 @@
   <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
   <td class="evidence-count">0 Files</td>
   <td class="table-actions">
-    <button class="action-btn attach-btn">Attach</button>
+    <button class="action-btn attach-btn">Attach Evidence</button>
   </td>
 </tr>
 
@@ -244,7 +244,7 @@
   <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
   <td class="evidence-count">0 Files</td>
   <td class="table-actions">
-    <button class="action-btn attach-btn">Attach</button>
+    <button class="action-btn attach-btn">Attach Evidence</button>
   </td>
 </tr>
 
@@ -254,7 +254,7 @@
   <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
   <td class="evidence-count">0 Files</td>
   <td class="table-actions">
-    <button class="action-btn attach-btn">Attach</button>
+    <button class="action-btn attach-btn">Attach Evidence</button>
   </td>
 </tr>
 
@@ -264,7 +264,7 @@
   <td><span class="status missing" data-tooltip="No evidence has been attached to support this requirement.">Missing Evidence</span></td>
   <td class="evidence-count">0 Files</td>
   <td class="table-actions">
-    <button class="action-btn attach-btn">Attach</button>
+    <button class="action-btn attach-btn">Attach Evidence</button>
   </td>
 </tr>
     </tbody>
@@ -357,7 +357,7 @@
           <td>IT Security</td>
           <td class="table-actions">
             <button class="secondary-btn view-btn">View</button>
-            <button class="action-btn attach-btn">Attach</button>
+            <button class="action-btn attach-btn">Attach Evidence</button>
           </td>
         </tr>
 
@@ -370,7 +370,7 @@
           <td>Security Team</td>
           <td class="table-actions">
             <button class="secondary-btn view-btn">View</button>
-            <button class="action-btn attach-btn">Attach</button>
+            <button class="action-btn attach-btn">Attach Evidence</button>
           </td>
         </tr>
 
@@ -382,7 +382,7 @@
           <td class="evidence-count">0 Files</td>
           <td>Compliance</td>
           <td class="table-actions">
-            <button class="action-btn attach-btn">Attach</button>
+            <button class="action-btn attach-btn">Attach Evidence</button>
           </td>
         </tr>
 
@@ -394,7 +394,7 @@
           <td class="evidence-count">0 Files</td>
           <td>IT Operations</td>
           <td class="table-actions">
-            <button class="action-btn attach-btn">Attach</button>
+            <button class="action-btn attach-btn">Attach Evidence</button>
           </td>
         </tr>
 
@@ -406,7 +406,7 @@
           <td class="evidence-count">0 Files</td>
           <td>Security Team</td>
           <td class="table-actions">
-            <button class="action-btn attach-btn">Attach</button>
+            <button class="action-btn attach-btn">Attach Evidence</button>
           </td>
         </tr>
 
@@ -418,7 +418,7 @@
           <td class="evidence-count">0 Files</td>
           <td>Infrastructure</td>
           <td class="table-actions">
-            <button class="action-btn attach-btn">Attach</button>
+            <button class="action-btn attach-btn">Attach Evidence</button>
           </td>
         </tr>
       </tbody>
@@ -855,7 +855,7 @@ function exportRequirementsCsv() {
   ];
 
   document
-    .querySelectorAll(".requirements-table tbody tr")
+    .querySelectorAll("#dashboard-view .requirements-table tbody tr")
     .forEach((row) => {
       const id = row.dataset.requirementId;
       const requirement = row.children[1].innerText;
